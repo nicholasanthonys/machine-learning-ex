@@ -12,8 +12,22 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+% Find indices of positive and negative examples
+pos = find(y==1); 
+neg = find(y==0);
 
 
+% Plot examples
+% X(pos,1) work as below :
+% y = [ 2 3 1 4 0 1 2 6 0 4]
+% X = [55 19;54 96;19 85;74 81;94 34;82 80;79 92;57 36;70 81;69 4]
+% X(find(y==1), 1)
+%ans =
+%    19
+%    82
+
+plot(X(pos,1),X(pos,2), 'k+', 'LineWidth',2, 'MarkerSize',7);
+plot(X(neg,1), X(neg,2), 'ko','MarkerFaceColor','y','MarkerSize',7);
 
 
 
