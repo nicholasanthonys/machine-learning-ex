@@ -19,8 +19,21 @@ grad = zeros(size(theta));
 
 
 
+h = sigmoid(X * theta);
+ % Because the multiplication matrix size is 1x1, we don't need sum() anymore
+left_equation =  (-y)' *log(h);
+right_equation = (1-y)' * log(1-h);
+summation =(left_equation - right_equation);
+tempJ = (1/m) * summation;
 
+% set theta(1) to zero because in regularized exclude the parameter theta(1) -> theta0 in theory
+theta(1) = 0;
 
+reg = lambda/(2*m) * sum(theta .^2);
+
+J = tempJ + reg;
+
+grad = (X'*(h - y))/m   + (lambda/m) * theta;
 
 % =============================================================
 
