@@ -20,10 +20,18 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+h = sigmoid(X * theta);
+
+% Because the multiplication matrix size is 1x1, we don't need sum() anymore
+left_equation = ( (-y)' *log(h));
+right_equation = ((1-y)' * log(1-h));
+
+summation =(left_equation - right_equation);
+
+J = (1/m) * summation;
 
 
-
-
+grad = (X' * (h-y))/m;
 
 
 
