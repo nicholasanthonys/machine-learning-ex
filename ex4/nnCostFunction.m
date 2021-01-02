@@ -187,12 +187,36 @@ disp(size(y_matrix));
 
 h = a3;
 left_equation = -(y_matrix) .* log(h);
+disp("log h size is");
+disp(size(log(h)));
 right_equation = (1-y_matrix) .* log(1-h);
 
 J= sum(sum(left_equation - right_equation))/m ;
 % theta(1) = 0;
 
-% reg = lambda/(2*m) * sum(theta .^2);
+disp("theta 1 size  is");
+disp(size(Theta1)); % 25 * 401
+
+disp("theta 2 size is");
+disp(size(Theta2)); % 10*26
+
+
+%----------- Apply regularization -------------------
+
+% Note that you should not be regularizing the terms that correspond to the bias. 
+% For the matrices Theta1 and Theta2, this corresponds to the first column of each matrix.
+t1 = Theta1(:,2:size(Theta1,2)); 
+disp("t1 size");
+disp(size(t1)); 
+
+t2 = Theta2(:,2:size(Theta2,2));
+disp("t2 size ");
+disp(size(t2)); % 10*25;
+
+
+reg = lambda/(2*m) * (sum(sum(t1 .^ 2)) + sum(sum(t2 .^ 2)));
+
+J = J + reg;
 
 
 % disp("size J is");
