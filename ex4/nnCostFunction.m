@@ -219,8 +219,66 @@ reg = lambda/(2*m) * (sum(sum(t1 .^ 2)) + sum(sum(t2 .^ 2)));
 J = J + reg;
 
 
-% disp("size J is");
-% disp(size(J));
+disp("size J is");
+disp(size(J));
+
+
+%------------ Apply Backpropagation -----------------
+for t = 1:m,
+    % Perform a forward propagation
+    a1 = [ones(size(X, 1), 1) X];
+
+    z2 =  a1 * Theta1';
+
+    temp =  sigmoid(z2);
+    a2 = [ones(size(temp,1) ,1 ) temp ];
+
+    z3 = a2 * Theta2';
+    % disp("z2 size is");
+    % disp(size(z2));
+    a3 = sigmoid(z3);
+
+    %difference between a3 and y matrice is d3
+    d3 = a3 - y_matrix;
+    % disp("size d3 is");
+    % disp(size(d3));
+
+    %without bias unit
+    tempTheta2 = Theta2(:,2:end);
+    % disp("size temp theta 2") ;
+    % disp(size(tempTheta2));
+
+    d2 = (d3 * (tempTheta2)) .* (sigmoidGradient(z2));
+    % disp("d2 size is");
+    % disp(size(d2));
+
+    
+    delta_1 = (d2)' * a1;
+    % disp("delta 1 size");
+    % disp(size(delta_1));
+
+    delta_2 = (d3)' * a2;
+    % disp("delta 2 size");
+    % disp(size(delta_2));
+
+
+    Theta1_grad = delta_1/m;
+
+    Theta2_grad = delta_2 / m;
+end
+
+
+%------- Regularized Neural Network -----------
+
+% set the 1st column of all rows to 0
+Theta1(:,1) = 0;  
+Theta1_grad = Theta1_grad + (lambda/m)*Theta1    ;
+
+% set the 1st column of all rows to 0
+Theta2(:,1) = 0;  
+Theta2_grad = Theta2_grad + (lambda/m) * Theta2    ;
+
+
 
 
 % J = tempJ + reg;
