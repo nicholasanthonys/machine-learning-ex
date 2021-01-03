@@ -281,12 +281,6 @@ Theta2_grad = Theta2_grad + (lambda/m) * Theta2    ;
 
 
 
-% J = tempJ + reg;
-
-% grad = (X'*(h - y_matrix))/m   + (lambda/m) * theta
-
-
-
 
 
 
