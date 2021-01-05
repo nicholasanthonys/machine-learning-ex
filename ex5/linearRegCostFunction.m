@@ -26,16 +26,16 @@ grad = zeros(size(theta));
 % disp("y size is");
 % disp(size(y))
 
-h = X * theta
+h = X * theta;
 
 
 J = sum(( h - y).^2)/(2*m);
 
 %-------- Regularized-------
- theta(1) =  0.
+ theta(1) =  0;
 % disp("temp is");
 % disp(temp);
- J = J +   ( lambda/(2*m) *  sum(theta.^2))
+ J = J +   ( lambda/(2*m) *  sum(theta.^2));
 
 
 grad = (X'*(h - y))/m   + (lambda/m) * theta;
